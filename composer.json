@@ -1,0 +1,20 @@
+{
+    "name": "FlowyProject/StandardExtensions",
+    "description": "StandardExtensions for FlowyCore",
+    "type": "library",
+    "license": "LGPL-2.1",
+    "require": {
+        "php": ">=7.2.0",
+        "php-64bit": "*",
+        "FlowyProject/FlowyCore": "2.0.0"
+    },
+    "autoload": {
+        "classmap": ["./"]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/FlowyProject/FlowyCore"
+        }
+    ]
+}
