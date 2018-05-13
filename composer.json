@@ -3,6 +3,7 @@
     "description": "StandardExtensions for FlowyCore",
     "type": "library",
     "license": "LGPL-2.1",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.2.0",
         "php-64bit": "*",
