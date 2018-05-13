@@ -6,6 +6,7 @@ use Flowy\Flow\FlowInfo;
 use Flowy\Flowy;
 use pocketmine\event\EventPriority;
 use pocketmine\event\HandlerList;
+use pocketmine\event\Event;
 use pocketmine\plugin\MethodEventExecutor;
 use pocketmine\plugin\PluginException;
 use pocketmine\plugin\PluginManager;
