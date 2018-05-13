@@ -6,7 +6,7 @@
     "require": {
         "php": ">=7.2.0",
         "php-64bit": "*",
-        "FlowyProject/FlowyCore": "2.0.0"
+        "FlowyProject/FlowyCore": "2.0.0.x-dev"
     },
     "autoload": {
         "classmap": ["./"]
