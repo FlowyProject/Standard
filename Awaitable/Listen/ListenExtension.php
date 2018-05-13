@@ -72,11 +72,13 @@ if(!class_exists('StandardExtensions\Awaitable\Listen\ListenExtension')) {
                 $plugin_info = "Plugin: " . $flowy->getDescription()->getFullName();
                 $event_name = (new \ReflectionClass($event))->getShortName();
                 $timings = new TimingsHandler("{$plugin_info}, ListenExtension::registerEvent({$event_name})", PluginManager::$pluginParentTimer);
-                $executor = new MethodEventExecutor('handleEventExMethod');
+                $executor = new MethodEventExecutor('handleListenExMethod');
+                $listener = new RegisteredListener($flowy, $executor, EventPriority::NORMAL, $flowy, false, $timings);
                 $this->registeredListeners[$event] = [
-                    'listener' => new RegisteredListener($flowy, $executor, EventPriority::NORMAL, $flowy, false, $timings),
+                    'listener' => $listener,
                     'listeners' => []
                 ];
+                $this->getEventListeners($event)->register($listener);
             }
             assert(!in_array($flowId, $this->registeredListeners[$event]['listeners'], true));
             $this->registeredListeners[$event]['listeners'][] = $flowId;
