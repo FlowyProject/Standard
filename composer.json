@@ -9,7 +9,10 @@
         "FlowyProject/FlowyCore": "dev-2.0.0dev"
     },
     "autoload": {
-        "files": ["./StandardExtensions.php"]
+        "files": ["./StandardExtensions.php"],
+        "psr-4": {
+            "StandardExtensions\\": "./"
+        }
     },
     "repositories": [
         {
