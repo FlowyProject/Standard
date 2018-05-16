@@ -6,7 +6,7 @@ use StandardExtensions\Awaitable\Awaitable;
 
 if(!class_exists('StandardExtensions\Awaitable\Delay\DelayAwaitable')) {
 
-    class DelayAwaitable extends Awaitable
+    class DelayAwaitable extends Awaitable implements DelayAwaitableInterface
     {
         /** @var int */
         protected $delay;

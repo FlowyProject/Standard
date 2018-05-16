@@ -5,7 +5,7 @@ use Flowy\FlowyException;
 
 if(!class_exists('StandardExtensions\Awaitable\Awaitable')) {
 
-    abstract class Awaitable
+    abstract class Awaitable implements AwaitableInterface
     {
         static private $extensionMethods = [];
 

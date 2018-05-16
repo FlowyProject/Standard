@@ -7,7 +7,7 @@ use StandardExtensions\Awaitable\Awaitable;
 
 if(!class_exists('StandardExtensions\Awaitable\Listen\ListenAwaitable')) {
 
-    class ListenAwaitable extends Awaitable
+    class ListenAwaitable extends Awaitable implements ListenAwaitableInterface
     {
         /** @var string[] */
         protected $targets = [];
@@ -15,13 +15,13 @@ if(!class_exists('StandardExtensions\Awaitable\Listen\ListenAwaitable')) {
         /** @var callable[] */
         protected $filters = [];
 
-        public function filter(callable $filter)
+        public function filter(callable $filter) : ListenAwaitableInterface
         {
             $this->filters[] = $filter;
             return $this;
         }
 
-        public function addListenTarget(string $event)
+        public function addListenTarget(string $event) : void
         {
             if (!is_subclass_of($event, Event::class))
                 throw new FlowyException("{$event} is not an Event.");
@@ -29,12 +29,18 @@ if(!class_exists('StandardExtensions\Awaitable\Listen\ListenAwaitable')) {
                 $this->targets[] = $event;
         }
 
-        public function getTargetEvents()
+        /**
+         * @return string[]
+         */
+        public function getTargetEvents() : array
         {
             return $this->targets;
         }
 
-        public function getFilters()
+        /**
+         * @return \Closure[]
+         */
+        public function getFilters() : array
         {
             return $this->filters;
         }

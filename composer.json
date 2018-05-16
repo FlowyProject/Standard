@@ -7,7 +7,7 @@
     "require": {
         "php": ">=7.2.0",
         "php-64bit": "*",
-        "flowy/core": "dev-2.0.0dev"
+        "flowy/core": "2.0.0"
     },
     "autoload": {
         "files": ["./StandardExtensions.php"],
