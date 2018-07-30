@@ -1,5 +1,5 @@
 {
-    "name": "flowy/standard",
+    "name": "Nerahikada/StandardExtensions",
     "description": "StandardExtensions for FlowyCore",
     "type": "library",
     "license": "LGPL-2.1",
@@ -18,7 +18,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/FlowyProject/FlowyCore"
+            "url": "https://github.com/WhiteGrouse/FlowyCore"
         }
     ]
 }
