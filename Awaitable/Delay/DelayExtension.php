@@ -4,7 +4,6 @@ namespace StandardExtensions\Awaitable\Delay;
 use Flowy\Extension\FlowyExtension;
 use Flowy\Flow\FlowInfo;
 use Flowy\Flowy;
-use pocketmine\Server;
 
 if(!class_exists('StandardExtensions\Awaitable\Delay\DelayExtension')) {
 
@@ -50,7 +49,7 @@ if(!class_exists('StandardExtensions\Awaitable\Delay\DelayExtension')) {
         {
             if (!$flowInfo->getReturn() instanceof DelayAwaitable)
                 return false;
-            $this->cancel($flowInfo->getFlowId());
+            $this->cancel($flowy, $flowInfo->getFlowId());
             return count(DelayAwaitable::getExtensions()) === 0; //for Awaitable extension
         }
 
@@ -59,13 +58,13 @@ if(!class_exists('StandardExtensions\Awaitable\Delay\DelayExtension')) {
         private function schedule(Flowy $flowy, int $flowId, int $delay)
         {
             assert(!isset($this->taskMap[$flowId]));
-            $this->taskMap[$flowId] = Server::getInstance()->getScheduler()->scheduleDelayedTask(new StdExDelayTask($flowy), $delay)->getTaskId();
+            $this->taskMap[$flowId] = $flowy->getScheduler()->scheduleDelayedTask(new StdExDelayTask($flowy), $delay)->getTaskId();
         }
 
-        private function cancel(int $flowId)
+        private function cancel(Flowy $flowy, int $flowId)
         {
             if (isset($this->taskMap[$flowId])) {
-                Server::getInstance()->getScheduler()->cancelTask($this->taskMap[$flowId]);
+                $flowy->getScheduler()->cancelTask($this->taskMap[$flowId]);
                 unset($this->taskMap[$flowId]);
             }
         }

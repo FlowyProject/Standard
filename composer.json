@@ -1,5 +1,5 @@
 {
-    "name": "flowy/standard",
+    "name": "Nerahikada/StandardExtensions",
     "description": "StandardExtensions for FlowyCore",
     "type": "library",
     "license": "LGPL-2.1",
@@ -7,7 +7,7 @@
     "require": {
         "php": ">=7.2.0",
         "php-64bit": "*",
-        "flowy/core": "2.0.0"
+        "FlowyProject/Flowy": "*"
     },
     "autoload": {
         "files": ["./StandardExtensions.php"],
@@ -18,7 +18,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/FlowyProject/FlowyCore"
+            "url": "https://github.com/WhiteGrouse/FlowyCore"
         }
     ]
 }
