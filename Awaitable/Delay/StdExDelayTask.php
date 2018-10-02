@@ -1,15 +1,24 @@
 <?php
 namespace StandardExtensions\Awaitable\Delay;
 
-use pocketmine\scheduler\PluginTask;
+use Flowy\Flowy;
+use pocketmine\scheduler\Task;
 
 if(!class_exists('StandardExtensions\Awaitable\Delay\StdExDelayTask')) {
 
-    class StdExDelayTask extends PluginTask
+    class StdExDelayTask extends Task
     {
+        /** @var Flowy */
+        private $flowy;
+
+        public function __construct(Flowy $flowy)
+        {
+            $this->flowy = $flowy;
+        }
+
         public function onRun(int $currentTick)
         {
-            $this->owner->handleDelayExMethod($this->getTaskId());
+            $this->flowy->handleDelayExMethod($this->getTaskId());
         }
     }
 

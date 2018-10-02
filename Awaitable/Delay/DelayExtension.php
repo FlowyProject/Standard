@@ -11,7 +11,7 @@ if(!class_exists('StandardExtensions\Awaitable\Delay\DelayExtension')) {
     class DelayExtension implements FlowyExtension
     {
         const NAME = 'StandardExtensions [ DelayExtension ]';
-        const VERSION = '1.0.0';
+        const VERSION = '1.1.0';
 
         public function getName() : string
         {
@@ -50,7 +50,7 @@ if(!class_exists('StandardExtensions\Awaitable\Delay\DelayExtension')) {
         {
             if (!$flowInfo->getReturn() instanceof DelayAwaitable)
                 return false;
-            $this->cancel($flowInfo->getFlowId());
+            $this->cancel($flowy, $flowInfo->getFlowId());
             return count(DelayAwaitable::getExtensions()) === 0; //for Awaitable extension
         }
 
@@ -59,13 +59,13 @@ if(!class_exists('StandardExtensions\Awaitable\Delay\DelayExtension')) {
         private function schedule(Flowy $flowy, int $flowId, int $delay)
         {
             assert(!isset($this->taskMap[$flowId]));
-            $this->taskMap[$flowId] = Server::getInstance()->getScheduler()->scheduleDelayedTask(new StdExDelayTask($flowy), $delay)->getTaskId();
+            $this->taskMap[$flowId] = $flowy->getScheduler()->scheduleDelayedTask(new StdExDelayTask($flowy), $delay)->getTaskId();
         }
 
-        private function cancel(int $flowId)
+        private function cancel(Flowy $flowy, int $flowId)
         {
             if (isset($this->taskMap[$flowId])) {
-                Server::getInstance()->getScheduler()->cancelTask($this->taskMap[$flowId]);
+                $flowy->getScheduler()->cancelTask($this->taskMap[$flowId]);
                 unset($this->taskMap[$flowId]);
             }
         }
@@ -74,7 +74,7 @@ if(!class_exists('StandardExtensions\Awaitable\Delay\DelayExtension')) {
         {
             if (($flowId = array_search($taskId, $this->taskMap, true)) !== false) {
                 unset($this->taskMap[$flowId]);
-                $flowInfo = $flowy->getFlowRepository()->get($flowId);
+                $flowInfo = $flowy->getFlowManager()->get($flowId);
                 if ($flowInfo->continue()) {
                     $flowy->handleReturn($flowInfo);
                 }

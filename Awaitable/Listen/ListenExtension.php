@@ -18,7 +18,7 @@ if(!class_exists('StandardExtensions\Awaitable\Listen\ListenExtension')) {
     class ListenExtension implements FlowyExtension
     {
         const NAME = 'StandardExtensions [ ListenExtension ]';
-        const VERSION = '1.0.0';
+        const VERSION = '1.1.0';
 
         public function getName() : string
         {
@@ -72,7 +72,7 @@ if(!class_exists('StandardExtensions\Awaitable\Listen\ListenExtension')) {
             if (!isset($this->registeredListeners[$event])) {
                 $plugin_info = "Plugin: " . $flowy->getDescription()->getFullName();
                 $event_name = (new \ReflectionClass($event))->getShortName();
-                $timings = new TimingsHandler("{$plugin_info}, ListenExtension::registerEvent({$event_name})", PluginManager::$pluginParentTimer);
+                $timings = new TimingsHandler("{$plugin_info}, ListenExtension::registerEvent({$event_name})");
                 $executor = new MethodEventExecutor('handleListenExMethod');
                 $listener = new RegisteredListener($flowy, $executor, EventPriority::NORMAL, $flowy, false, $timings);
                 $this->registeredListeners[$event] = [
@@ -109,7 +109,7 @@ if(!class_exists('StandardExtensions\Awaitable\Listen\ListenExtension')) {
 
         public function handleListenExMethod(Flowy $flowy, Event $event)
         {
-            foreach ($flowy->getFlowRepository()->getIterator() as $flowInfo) {
+            foreach ($flowy->getFlowManager()->getIterator() as $flowInfo) {
                 if (!$flowInfo->getReturn() instanceof ListenAwaitable)
                     continue;
                 if (!in_array(get_class($event), $flowInfo->getReturn()->getTargetEvents()))
