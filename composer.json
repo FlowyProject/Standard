@@ -1,24 +1,19 @@
 {
     "name": "flowy/standard",
-    "description": "StandardExtensions for FlowyCore",
+    "description": "Standard functions for FlowyCore",
     "type": "library",
     "license": "LGPL-2.1",
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.2.0",
         "php-64bit": "*",
-        "flowy/core": "2.0.0"
+        "flowy/core": "3.1.0"
     },
     "autoload": {
-        "files": ["./StandardExtensions.php"],
         "psr-4": {
-            "StandardExtensions\\": "./"
-        }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/FlowyProject/FlowyCore"
-        }
-    ]
+            "flowy\\standard\\": "src/"
+        },
+        "files": [
+            "src/Delay.php"
+        ]
+    }
 }
