@@ -51,22 +51,12 @@ if(!defined("flowy_standard_Delay")) {
         {
             return new DelayTask(self::$currentId++);
         }
-
-        protected static $scheduler = null;
-
-        public static function getScheduler(): TaskScheduler
-        {
-            if (self::$scheduler === null) {
-                self::$scheduler = new TaskScheduler(Server::getInstance()->getLogger(), "flowy\\delay");
-            }
-            return self::$scheduler;
-        }
     }
 
-    function delay(int $tick)
+    function delay(TaskScheduler $scheduler, int $tick)
     {
         $task = DelayTask::create();
-        DelayTask::getScheduler()->scheduleDelayedTask($task, $tick);
+        $scheduler->scheduleDelayedTask($task, $tick);
         yield listen(DelayCallbackEvent::class)->filter(function ($ev) use ($task) {
             return $ev->getDelayId() === $task->getDelayId();
         });
